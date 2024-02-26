@@ -23,7 +23,7 @@ export default function Home() {
           cssLink.href = data.css_path;
           cssLink.rel = "stylesheet";
           cssLink.type = "text/css";
-          console.log(`applying CSS.`)
+          console.log(`applying CSS.`);
           document.head.appendChild(cssLink);
           document.body.classList.add(data.current_theme);
         }
@@ -35,8 +35,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="text-primary bg-background">
-      hello world! - testing alert
+    <div className="p-3">
+      <div className="bg-background text-content1-foreground flex flex-col gap-3">
+        hello world! - testing alert
+        <div className="w-10 h-10 bg-primary border-1 border-red-500">
+          primary
+        </div>
+        <div className="w-10 h-10 bg-secondary border-1 border-red-500">
+          secondary
+        </div>
+        <div className="w-10 h-10 bg-success border-1 border-red-500">
+          success
+        </div>
+      </div>
     </div>
   );
 }
