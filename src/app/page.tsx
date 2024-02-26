@@ -25,6 +25,7 @@ export default function Home() {
           cssLink.type = "text/css";
           console.log(`applying CSS.`)
           document.head.appendChild(cssLink);
+          document.body.classList.add(data.current_theme);
         }
 
         console.log("message received", data);
