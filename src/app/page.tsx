@@ -7,5 +7,5 @@ export default function Home() {
     console.log(document.cookie);
   }, []);
 
-  return <div>hello world!</div>;
+  return <div className="text-primary bg-background">hello world!</div>;
 }
