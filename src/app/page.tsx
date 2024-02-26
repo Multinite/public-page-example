@@ -4,8 +4,6 @@ import { useEffect } from "react";
 export default function Home() {
   useEffect(() => {
     console.log("Hello world from another site!");
-    console.log();
-    alert("test alert");
 
     window.addEventListener(
       "message",
@@ -16,8 +14,8 @@ export default function Home() {
           )
         )
           return;
-
-        console.log("message received", event);
+        const data = JSON.parse(event.data);
+        console.log("message received", data);
       },
       false
     );
