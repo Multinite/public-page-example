@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+//@ts-ignore
 import type { PPC_messageType } from "./../../../../multinite-server/src/app/components/_mainNav/PPC";
 
 export default function Home() {
