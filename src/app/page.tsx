@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import type { PPC_messageType } from "./../../../../multinite-server/src/app/components/_mainNav/PPC";
 
 export default function Home() {
   useEffect(() => {
@@ -14,7 +15,17 @@ export default function Home() {
           )
         )
           return;
-        const data = JSON.parse(event.data);
+        const data: PPC_messageType = JSON.parse(event.data);
+
+        if (data.type === "init") {
+          const cssLink = document.createElement("link");
+          cssLink.href = data.css_path;
+          cssLink.rel = "stylesheet";
+          cssLink.type = "text/css";
+          console.log(`applying CSS.`)
+          document.head.appendChild(cssLink);
+        }
+
         console.log("message received", data);
       },
       false
