@@ -11,7 +11,9 @@ import {
 //@ts-ignore
 import type {
   PPC_messageType,
+  //@ts-ignore
   PPC_data_await,
+  //@ts-ignore
 } from "./../../../../multinite-server/src/app/components/_mainNav/PPC";
 
 //* NOTE: If this type is updated, make sure to update it in the multinite-public-tab-manager's API as well.
