@@ -29,7 +29,7 @@ export default function Home() {
             error: null,
             success: true,
           };
-          event.source?.postMessage(JSON.stringify(data));
+          window.top?.postMessage(JSON.stringify(data), "*");
         }
 
         if (type === "init") {
@@ -48,7 +48,6 @@ export default function Home() {
             });
           }
         }
-
       },
       false
     );
