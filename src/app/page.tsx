@@ -30,9 +30,7 @@ export default function Home() {
             success: true,
           };
           window.top?.postMessage(JSON.stringify(data), "*");
-        }
-
-        if (type === "init") {
+        }else if (type === "init") {
           if (success) {
             const cssLink = document.createElement("link");
             cssLink.href = data.css_path;
@@ -47,6 +45,10 @@ export default function Home() {
               cause: error,
             });
           }
+        }else if(type === "theme_change"){
+          console.log('change theme:', data.old_theme, '->', data.new_theme)
+          document.body.classList.remove(data.old_theme);
+          document.body.classList.add(data.new_theme);
         }
       },
       false
