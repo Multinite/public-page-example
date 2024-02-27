@@ -29,7 +29,7 @@ export default function Home() {
             error: null,
             success: true,
           };
-          window.top?.postMessage(JSON.stringify(data));
+          event.source?.postMessage(JSON.stringify(data));
         }
 
         if (type === "init") {
