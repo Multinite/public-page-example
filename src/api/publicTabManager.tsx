@@ -165,23 +165,17 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           success: true,
         };
         window.top?.postMessage(data, "*");
-        let tab_event = tabEvents.current.find(x => x.listenerId === listenerId);
-        if(tab_event){
-          tabEvents.current = tabEvents.current.filter(x => x.listenerId !== listenerId);
-          tab_event.cb({defer() {
-            const data: PPC_messageType = {
-              type: "tab_defer_event",
-              data: {
-                listenerId: listenerId,
-              },
-              error: null,
-              success: true,
-            };
-            window.top?.postMessage(data, "*");
-
-            return () => {
+        let tab_event = tabEvents.current.find(
+          (x) => x.listenerId === listenerId
+        );
+        if (tab_event) {
+          tabEvents.current = tabEvents.current.filter(
+            (x) => x.listenerId !== listenerId
+          );
+          tab_event.cb({
+            defer() {
               const data: PPC_messageType = {
-                type: "tab_defer_resolve_event",
+                type: "tab_defer_event",
                 data: {
                   listenerId: listenerId,
                 },
@@ -189,8 +183,20 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
                 success: true,
               };
               window.top?.postMessage(data, "*");
-            }
-          },})
+
+              return () => {
+                const data: PPC_messageType = {
+                  type: "tab_defer_resolve_event",
+                  data: {
+                    listenerId: listenerId,
+                  },
+                  error: null,
+                  success: true,
+                };
+                window.top?.postMessage(data, "*");
+              };
+            },
+          });
         }
       };
       return UnSub;
@@ -260,9 +266,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
         )
           return;
 
-        const { type, success, error, data }: PPC_messageType = JSON.parse(
-          event.data
-        );
+        const { type, success, error, data }: PPC_messageType = event.data;
 
         if (type === "heartbeat") {
           console.log("heartbeat received");
