@@ -7,9 +7,12 @@ export default function Home() {
   useEffect(() => {
     console.log("Hello world from another site!");
 
-    window.postMessage({
-      type: "init"
-    }, "*");
+    window.postMessage(
+      {
+        type: "init",
+      },
+      "*"
+    );
 
     window.addEventListener(
       "message",
@@ -20,9 +23,11 @@ export default function Home() {
           )
         )
           return;
-        const data: PPC_messageType = JSON.parse(event.data);
+        const { type, success, error, data }: PPC_messageType = JSON.parse(
+          event.data
+        );
 
-        if (data.type === "init") {
+        if (type === "init" && success) {
           const cssLink = document.createElement("link");
           cssLink.href = data.css_path;
           cssLink.rel = "stylesheet";
@@ -30,9 +35,12 @@ export default function Home() {
           console.log(`applying CSS.`);
           document.head.appendChild(cssLink);
           document.body.classList.add(data.current_theme);
-          document.documentElement.style.setProperty("colorScheme", "dark")
+          document.documentElement.style.setProperty("colorScheme", "dark");
+        } else {
+          throw new Error("Failed to initialize", {
+            cause: error,
+          });
         }
-
 
         console.log("message received", data);
       },
