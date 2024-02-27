@@ -12,13 +12,13 @@ import {
 
 import type {
   PPC_messageType,
-  PPC_data_await,
   PPC_data_response,
   InitialTabManagerState,
   NotificationType,
   TabManagerLisenerUnsubscribe,
   TabInfo,
   TabListener,
+  PPC_data_await,
 } from "./types";
 
 //@ts-ignore
@@ -303,6 +303,18 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
         } else if (type === "data_response") {
           if (success === false) {
             console.error("[TabManager] Error:", error);
+            const res: PPC_messageType = {
+              type: "log",
+              data: {
+                logDeats: {
+                  content: ["[TabManager] Error:", error],
+                  logStyle: "error",
+                },
+              },
+              error: null,
+              success: true,
+            };
+            window.top?.postMessage(res, "*");
             return;
           }
         }
