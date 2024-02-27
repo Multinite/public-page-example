@@ -5,10 +5,13 @@ import { useEffect } from "react";
 export default function Home() {
   const tabManager = useTabManager();
   useEffect(() => {
-    console.log('using API')
+    console.log("using API");
     tabManager.log({
       content: ["[TEST] LOLOL!", tabManager.tab],
       logStyle: "test",
+    });
+    tabManager.on("start", () => {
+      console.log("tab started");
     });
   }, [tabManager]);
 

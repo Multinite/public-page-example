@@ -300,6 +300,11 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             "colorScheme",
             data.colorScheme || "dark"
           );
+        } else if (type === "data_response") {
+          if (success === false) {
+            console.error("[TabManager] Error:", error);
+            return;
+          }
         }
       },
       false
