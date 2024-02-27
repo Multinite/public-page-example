@@ -11,21 +11,7 @@ interface ErrorI {
 export type { ErrorI };
 
 interface PPC_message {
-  type:
-    | "init"
-    | "heartbeat"
-    | "heartbeat_response"
-    | "theme_change"
-    | "log"
-    | "data_await"
-    | "data_response"
-    | "tab_alert"
-    | "set_tab_icon"
-    | "set_tab_name"
-    | "notification_remove"
-    | "notificationType_set"
-    | "notification_set"
-    | "notification_add";
+  type: string;
   success: boolean;
   error: ErrorI | null;
   data: any | null;
@@ -50,6 +36,33 @@ interface PPC_notification_remove extends PPC_message {
     count: Parameters<
       tabManagerstate["notification"]["addNotificationNumber"]
     >[0];
+  };
+  error: null;
+}
+
+interface PPC_add_tab_listener extends PPC_message {
+  type: "add_tab_listener";
+  success: true;
+  data: {
+    type: TabListener["type"];
+    listenerId: string;
+  };
+  error: null;
+}
+interface PPC_remove_tab_listener extends PPC_message {
+  type: "remove_tab_listener";
+  success: true;
+  data: {
+    listenerId: string;
+  };
+  error: null;
+}
+interface PPC_set_tab_event extends PPC_message {
+  type: "tab_event";
+  success: true;
+  data: {
+    event: TabListener["type"];
+    listenerId: string;
   };
   error: null;
 }
@@ -89,17 +102,37 @@ interface PPC_data_await extends PPC_message {
   };
   error: null;
 }
-interface PPC_data_response extends PPC_message {
-  type: "data_response";
+
+interface PPC_data_response_TEMPLATE extends PPC_message {
+  type: `data_response`;
   success: boolean;
   data: {
     request_type: PPC_data_await["data"]["request_type"];
     request_uid: string;
     response: any;
-  };
+  } | null;
   error: ErrorI | null;
 }
 
+interface PPC_data_response_success extends PPC_data_response_TEMPLATE {
+  type: `data_response`;
+  success: true;
+  data: {
+    request_type: PPC_data_await["data"]["request_type"];
+    request_uid: string;
+    response: any;
+  };
+  error: null;
+}
+
+interface PPC_data_response_fail extends PPC_data_response_TEMPLATE {
+  type: `data_response`;
+  success: false;
+  data: null;
+  error: ErrorI;
+}
+
+type PPC_data_response = PPC_data_response_success | PPC_data_response_fail;
 export type { PPC_data_await, PPC_data_response };
 
 interface PPC_log extends PPC_message {
@@ -179,8 +212,11 @@ export type PPC_messageType =
   | PPC_notification_remove
   | PPC_notification_set
   | PPC_set_tab_name
+  | PPC_set_tab_event
+  | PPC_remove_tab_listener
   | PPC_notificationType_set
   | PPC_heartbeat
+  | PPC_add_tab_listener
   | PPC_set_tab_icon
   | PPC_data_await
   | PPC_tab_alert
@@ -272,7 +308,7 @@ type cLogStyleType = "success" | "error" | "info" | "warning";
 type TabLogType = cLogStyleType | "test";
 
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
-type TabInfo =
+export type TabInfo =
   | TabInfo_content
   | TabInfo_loading
   | TabInfo_chat
@@ -282,7 +318,7 @@ type TabInfo =
 
 type ProceedDeferFnc = () => void;
 type TabListenerDeferFunction = () => ProceedDeferFnc;
-type TabListener = {
+export type TabListener = {
   type: "close" | "focus" | "blur" | "moved" | "start";
   tabId: TabInfo["id"];
   callback: (event: { defer: TabListenerDeferFunction }) => void;

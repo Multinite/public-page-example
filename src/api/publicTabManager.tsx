@@ -7,6 +7,7 @@ import {
   useContext,
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import type {
@@ -16,6 +17,8 @@ import type {
   InitialTabManagerState,
   NotificationType,
   TabManagerLisenerUnsubscribe,
+  TabInfo,
+  TabListener,
 } from "./types";
 
 //@ts-ignore
@@ -28,6 +31,10 @@ interface DataAwaitQueue {
 
 function TabManagerProvider({ children }: { children: ReactNode }) {
   const data_await_queue = useRef<DataAwaitQueue[]>([]);
+  const [tab, setTab] = useState<TabInfo | null>(null);
+  const tabEvents = useRef<
+    { listenerId: string; cb: TabListener["callback"] }[]
+  >([]);
 
   const data_await = useCallback(function data_await<T>({
     callback,
@@ -129,6 +136,24 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
       },
     },
     on(event, cb) {
+      const listenerId = crypto.randomUUID();
+
+      tabEvents.current.push({
+        
+      });
+
+      const data: PPC_messageType = {
+        type: "add_tab_listener",
+        data: {
+          type: event,
+          listenerId: listenerId,
+        },
+        error: null,
+        success: true,
+      };
+
+      window.top?.postMessage(data, "*");
+
       const UnSub: TabManagerLisenerUnsubscribe = () => {};
       return UnSub;
     },
@@ -168,7 +193,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
       };
       window.top?.postMessage(data, "*");
     },
-    tab: null,
+    tab: tab,
     tabAlert(alertProps) {
       return new Promise((res) => {
         const data: PPC_messageType = {
@@ -220,6 +245,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             document.head.appendChild(cssLink);
             document.documentElement.classList.add(data.current_theme);
             document.documentElement.style.setProperty("colorScheme", "dark");
+            setTab(data.tabDetails);
           } else {
             throw new Error("Failed to initialize", {
               cause: error,
