@@ -221,6 +221,15 @@ interface PPC_performance_mark extends PPC_message {
   error: null;
 }
 
+interface PPC_tab_requestFullscreen extends PPC_message {
+  type: "requestFullscreen";
+  success: true;
+  data: {
+    targetEl: string;
+  };
+  error: null;
+}
+
 interface PPC_message_init_successful extends PPC_message {
   type: "init";
   success: true;
@@ -252,6 +261,7 @@ export type PPC_messageType =
   | PPC_tab_event
   | PPC_remove_tab_listener
   | PPC_tab_unsub_defer_resolve
+  | PPC_tab_requestFullscreen
   | PPC_notificationType_set
   | PPC_tab_unsub_defer
   | PPC_heartbeat
