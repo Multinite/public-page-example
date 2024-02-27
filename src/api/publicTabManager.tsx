@@ -269,7 +269,6 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
         const { type, success, error, data }: PPC_messageType = event.data;
 
         if (type === "heartbeat") {
-          console.log("heartbeat received");
           const data: PPC_messageType = {
             type: "heartbeat_response",
             data: null,
@@ -283,7 +282,6 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             cssLink.href = data.css_path;
             cssLink.rel = "stylesheet";
             cssLink.type = "text/css";
-            console.log(`applying CSS.`);
             document.head.appendChild(cssLink);
             document.documentElement.classList.add(data.current_theme);
             document.documentElement.style.setProperty("colorScheme", "dark");
