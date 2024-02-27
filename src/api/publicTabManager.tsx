@@ -155,7 +155,44 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
 
       window.top?.postMessage(data, "*");
 
-      const UnSub: TabManagerLisenerUnsubscribe = () => {};
+      const UnSub: TabManagerLisenerUnsubscribe = () => {
+        const data: PPC_messageType = {
+          type: "remove_tab_listener",
+          data: {
+            listenerId,
+          },
+          error: null,
+          success: true,
+        };
+        window.top?.postMessage(data, "*");
+        let tab_event = tabEvents.current.find(x => x.listenerId === listenerId);
+        if(tab_event){
+          tabEvents.current = tabEvents.current.filter(x => x.listenerId !== listenerId);
+          tab_event.cb({defer() {
+            const data: PPC_messageType = {
+              type: "tab_defer_event",
+              data: {
+                listenerId: listenerId,
+              },
+              error: null,
+              success: true,
+            };
+            window.top?.postMessage(data, "*");
+
+            return () => {
+              const data: PPC_messageType = {
+                type: "tab_defer_resolve_event",
+                data: {
+                  listenerId: listenerId,
+                },
+                error: null,
+                success: true,
+              };
+              window.top?.postMessage(data, "*");
+            }
+          },})
+        }
+      };
       return UnSub;
     },
     path: {
