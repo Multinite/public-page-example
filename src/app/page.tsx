@@ -7,6 +7,8 @@ export default function Home() {
   useEffect(() => {
     console.log("Hello world from another site!");
 
+    window.postMessage("init", "*");
+
     window.addEventListener(
       "message",
       (event) => {
@@ -26,7 +28,9 @@ export default function Home() {
           console.log(`applying CSS.`);
           document.head.appendChild(cssLink);
           document.body.classList.add(data.current_theme);
+          document.documentElement.style.setProperty("colorScheme", "dark")
         }
+
 
         console.log("message received", data);
       },
@@ -38,13 +42,13 @@ export default function Home() {
     <div className="p-3">
       <div className="bg-background text-content1-foreground flex flex-col gap-3">
         hello world! - testing alert
-        <div className="w-10 h-10 bg-primary border-1 border-red-500">
+        <div className="w-20 h-20 bg-primary border-1 border-red-500">
           primary
         </div>
-        <div className="w-10 h-10 bg-secondary border-1 border-red-500">
+        <div className="w-20 h-20 bg-secondary border-1 border-red-500">
           secondary
         </div>
-        <div className="w-10 h-10 bg-success border-1 border-red-500">
+        <div className="w-20 h-20 bg-success border-1 border-red-500">
           success
         </div>
       </div>
