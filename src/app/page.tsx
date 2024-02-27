@@ -3,13 +3,14 @@ import { useTabManager } from "@/api/publicTabManager";
 import { useEffect } from "react";
 
 export default function Home() {
-  const TabManager = useTabManager();
+  const tabManager = useTabManager();
   useEffect(() => {
-    TabManager.log({
-      content: ["[TEST] LOLOL!"],
+    console.log('using API')
+    tabManager.log({
+      content: ["[TEST] LOLOL!", tabManager.tab],
       logStyle: "test",
     });
-  }, [TabManager]);
+  }, [tabManager]);
 
   return (
     <div className="p-3">
