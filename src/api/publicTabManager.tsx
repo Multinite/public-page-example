@@ -337,6 +337,34 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           data_await_queue.current
             .filter((x) => x.uid === data.request_uid)
             .forEach((x) => x.callback(data));
+        } else if (type === "tab_event") {
+          tabEvents.current.forEach((x) =>
+            x.cb({
+              defer: () => {
+                const data: PPC_messageType = {
+                  type: "tab_defer_event",
+                  data: {
+                    listenerId: x.listenerId,
+                  },
+                  error: null,
+                  success: true,
+                };
+                window.top?.postMessage(data, "*");
+
+                return () => {
+                  const data: PPC_messageType = {
+                    type: "tab_defer_resolve_event",
+                    data: {
+                      listenerId: x.listenerId,
+                    },
+                    error: null,
+                    success: true,
+                  };
+                  window.top?.postMessage(data, "*");
+                };
+              },
+            })
+          );
         }
       },
       false
