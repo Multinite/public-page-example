@@ -36,7 +36,7 @@ export default function Home() {
             error: null,
             success: true,
           };
-          window.top?.postMessage(data);
+          window.top?.postMessage(JSON.stringify(data));
         }
 
         if (type === "init") {
