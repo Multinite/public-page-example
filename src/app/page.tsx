@@ -7,7 +7,9 @@ export default function Home() {
   useEffect(() => {
     console.log("Hello world from another site!");
 
-    window.postMessage("init", "*");
+    window.postMessage({
+      type: "init"
+    }, "*");
 
     window.addEventListener(
       "message",
