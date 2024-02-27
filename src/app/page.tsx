@@ -30,7 +30,7 @@ export default function Home() {
             success: true,
           };
           window.top?.postMessage(JSON.stringify(data), "*");
-        }else if (type === "init") {
+        } else if (type === "init") {
           if (success) {
             const cssLink = document.createElement("link");
             cssLink.href = data.css_path;
@@ -38,17 +38,17 @@ export default function Home() {
             cssLink.type = "text/css";
             console.log(`applying CSS.`);
             document.head.appendChild(cssLink);
-            document.body.classList.add(data.current_theme);
+            document.documentElement.classList.add(data.current_theme);
             document.documentElement.style.setProperty("colorScheme", "dark");
           } else {
             throw new Error("Failed to initialize", {
               cause: error,
             });
           }
-        }else if(type === "theme_change"){
-          console.log('change theme:', data.old_theme, '->', data.new_theme)
-          document.body.classList.remove(data.old_theme);
-          document.body.classList.add(data.new_theme);
+        } else if (type === "theme_change") {
+          document.documentElement.classList.remove(data.old_theme);
+          document.documentElement.classList.add(data.new_theme);
+          document.documentElement.style.setProperty("colorScheme", data.colorScheme);
         }
       },
       false
