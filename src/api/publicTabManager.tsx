@@ -226,7 +226,15 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
       setPath(url) {},
     },
     performance: {
-      loadFinished() {},
+      loadFinished() {
+        const data: PPC_messageType = {
+          type: "performance_load_finished",
+          data: null,
+          error: null,
+          success: true,
+        };
+        window.top?.postMessage(data, "*");
+      },
       mark(name, hint) {
         return null;
       },

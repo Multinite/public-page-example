@@ -205,6 +205,21 @@ interface PPC_set_tab_name extends PPC_message {
   };
   error: null;
 }
+interface PPC_performance_load_finished extends PPC_message {
+  type: "performance_load_finished";
+  success: true;
+  data: null;
+  error: null;
+}
+interface PPC_performance_mark extends PPC_message {
+  type: "performance_mark";
+  success: true;
+  data: {
+    name: string;
+    hint?: string;
+  };
+  error: null;
+}
 
 interface PPC_message_init_successful extends PPC_message {
   type: "init";
@@ -243,6 +258,8 @@ export type PPC_messageType =
   | PPC_add_tab_listener
   | PPC_set_tab_icon
   | PPC_data_await
+  | PPC_performance_mark
+  | PPC_performance_load_finished
   | PPC_tab_alert
   | PPC_data_response
   | PPC_theme_change

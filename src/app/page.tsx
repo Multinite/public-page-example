@@ -13,6 +13,7 @@ export default function Home() {
         content: ["[TEST] LOLOL!", tabManager.tab],
         logStyle: "test",
       });
+      tabManager.performance.loadFinished();
     });
   }, [tabManager]);
 
