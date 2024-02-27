@@ -13,10 +13,9 @@ export default function Home() {
         content: ["[TEST] LOLOL!", tabManager.tab],
         logStyle: "test",
       });
-      setTimeout(() => {
-        tabManager.performance.loadFinished();
-      }, 5000);
-      tabManager.notification.setNotificationType("bell")
+
+      tabManager.performance.loadFinished();
+      tabManager.notification.setNotificationType("bell");
     });
   }, [tabManager]);
 

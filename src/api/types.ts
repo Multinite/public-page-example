@@ -113,7 +113,11 @@ interface PPC_data_await extends PPC_message {
   type: "data_await";
   success: true;
   data: {
-    request_type: "notificationType" | "notificationCount" | "systenInfo";
+    request_type:
+      | "notificationType"
+      | "notificationCount"
+      | "systenInfo"
+      | "fullscreenRequest";
     request_uid: string;
   };
   error: null;
@@ -356,7 +360,7 @@ interface TabInfo_profile extends TabInfoI {
 //* Copied from colorLog.ts
 type cLogStyleType = "success" | "error" | "info" | "warning";
 //* Copied from globalTabManager.tsx
-type TabLogType = cLogStyleType | "test";
+type TabLogType = cLogStyleType | "test" | "system";
 
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
 export type TabInfo =
