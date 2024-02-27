@@ -13,7 +13,9 @@ export default function Home() {
         content: ["[TEST] LOLOL!", tabManager.tab],
         logStyle: "test",
       });
-      tabManager.performance.loadFinished();
+      setTimeout(() => {
+        tabManager.performance.loadFinished();
+      }, 5000);
     });
   }, [tabManager]);
 
