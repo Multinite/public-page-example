@@ -1,11 +1,15 @@
 "use client";
+import { useTabManager } from "@/api/publicTabManager";
 import { useEffect } from "react";
 
 export default function Home() {
+  const TabManager = useTabManager();
   useEffect(() => {
-    console.log("Hello world from another site!");
-
-  }, []);
+    TabManager.log({
+      content: ["[TEST] LOLOL!"],
+      logStyle: "test",
+    });
+  }, [TabManager]);
 
   return (
     <div className="p-3">

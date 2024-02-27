@@ -159,13 +159,7 @@ interface DataAwaitQueue {
   uid: string;
 }
 
-function TabManagerProvider({
-  children,
-  tabId,
-}: {
-  children: ReactNode;
-  tabId: TabInfo["id"];
-}) {
+function TabManagerProvider({ children }: { children: ReactNode }) {
   const data_await_queue = useRef<DataAwaitQueue[]>([]);
 
   const data_await = useCallback(function data_await<T>({
@@ -314,7 +308,7 @@ function TabManagerProvider({
           type: "tab_alert",
           data: {
             //@ts-ignore
-            alertProps
+            alertProps,
           },
           error: null,
           success: true,
