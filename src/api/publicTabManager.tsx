@@ -301,7 +301,26 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             data.colorScheme || "dark"
           );
         } else if (type === "data_response") {
-          if (success === false) {
+          if (data.request_type === "systenInfo") {
+            if (!success) {
+              console.error("[TabManager] Error:", error);
+              const res: PPC_messageType = {
+                type: "log",
+                data: {
+                  logDeats: {
+                    content: ["[TabManager] Error:", error],
+                    logStyle: "error",
+                  },
+                },
+                error: null,
+                success: true,
+              };
+              window.top?.postMessage(res, "*");
+              return;
+            }
+          }
+
+          if (!success) {
             console.error("[TabManager] Error:", error);
             const res: PPC_messageType = {
               type: "log",
@@ -317,6 +336,9 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             window.top?.postMessage(res, "*");
             return;
           }
+          data_await_queue.current
+            .filter((x) => x.uid === data.request_uid)
+            .forEach((x) => x.callback(data));
         }
       },
       false

@@ -113,7 +113,7 @@ interface PPC_data_await extends PPC_message {
   type: "data_await";
   success: true;
   data: {
-    request_type: "notificationType" | "notificationCount";
+    request_type: "notificationType" | "notificationCount" | "systenInfo";
     request_uid: string;
   };
   error: null;
@@ -122,11 +122,15 @@ interface PPC_data_await extends PPC_message {
 interface PPC_data_response_TEMPLATE extends PPC_message {
   type: `data_response`;
   success: boolean;
-  data: {
-    request_type: PPC_data_await["data"]["request_type"];
-    request_uid: string;
-    response: any;
-  } | null;
+  data:
+    | {
+        request_type: PPC_data_await["data"]["request_type"];
+        request_uid: string;
+        response: any;
+      }
+    | {
+        request_type: PPC_data_await["data"]["request_type"];
+      };
   error: ErrorI | null;
 }
 
@@ -144,7 +148,9 @@ interface PPC_data_response_success extends PPC_data_response_TEMPLATE {
 interface PPC_data_response_fail extends PPC_data_response_TEMPLATE {
   type: `data_response`;
   success: false;
-  data: null;
+  data: {
+    request_type: PPC_data_await["data"]["request_type"];
+  };
   error: ErrorI;
 }
 
