@@ -16,6 +16,7 @@ export default function Home() {
       setTimeout(() => {
         tabManager.performance.loadFinished();
       }, 5000);
+      tabManager.notification.setNotificationType("bell")
     });
   }, [tabManager]);
 
