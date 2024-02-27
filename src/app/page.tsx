@@ -6,6 +6,7 @@ import type { PPC_messageType } from "./../../../../multinite-server/src/app/com
 export default function Home() {
   useEffect(() => {
     console.log("Hello world from another site!");
+    let multinite: MessageEventSource;
 
     window.postMessage(
       {
@@ -23,23 +24,38 @@ export default function Home() {
           )
         )
           return;
+
         const { type, success, error, data }: PPC_messageType = JSON.parse(
           event.data
         );
 
-        if (type === "init" && success) {
-          const cssLink = document.createElement("link");
-          cssLink.href = data.css_path;
-          cssLink.rel = "stylesheet";
-          cssLink.type = "text/css";
-          console.log(`applying CSS.`);
-          document.head.appendChild(cssLink);
-          document.body.classList.add(data.current_theme);
-          document.documentElement.style.setProperty("colorScheme", "dark");
-        } else {
-          throw new Error("Failed to initialize", {
-            cause: error,
-          });
+        if (type === "heartbeat") {
+          console.log("heartbeat received");
+          multinite = event.source as MessageEventSource;
+          const data: PPC_messageType = {
+            type: "heartbeat_response",
+            data: null,
+            error: null,
+            success: true,
+          };
+          multinite.postMessage(data);
+        }
+
+        if (type === "init") {
+          if (success) {
+            const cssLink = document.createElement("link");
+            cssLink.href = data.css_path;
+            cssLink.rel = "stylesheet";
+            cssLink.type = "text/css";
+            console.log(`applying CSS.`);
+            document.head.appendChild(cssLink);
+            document.body.classList.add(data.current_theme);
+            document.documentElement.style.setProperty("colorScheme", "dark");
+          } else {
+            throw new Error("Failed to initialize", {
+              cause: error,
+            });
+          }
         }
 
         console.log("message received", data);
