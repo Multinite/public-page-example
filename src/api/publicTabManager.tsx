@@ -33,7 +33,10 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
   const data_await_queue = useRef<DataAwaitQueue[]>([]);
   const [tab, setTab] = useState<TabInfo | null>(null);
   const tabEvents = useRef<
-    { listenerId: string; cb: TabListener["callback"] }[]
+    {
+      tabListener: TabListener;
+      listenerId: string;
+    }[]
   >([]);
 
   const data_await = useCallback(function data_await<T>({
@@ -138,9 +141,18 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
     on(event, cb) {
       const listenerId = crypto.randomUUID();
 
+      const { event_, cb_ } = {
+        event_: event as "start",
+        cb_: cb as () => void,
+      };
+
       tabEvents.current.push({
         listenerId,
-        cb,
+        tabListener: {
+          callback: cb_,
+          tabId: "This_only_exists_for_typesafety_lol",
+          type: event_,
+        },
       });
 
       const data: PPC_messageType = {
@@ -172,21 +184,11 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           tabEvents.current = tabEvents.current.filter(
             (x) => x.listenerId !== listenerId
           );
-          tab_event.cb({
-            defer() {
-              const data: PPC_messageType = {
-                type: "tab_defer_event",
-                data: {
-                  listenerId: listenerId,
-                },
-                error: null,
-                success: true,
-              };
-              window.top?.postMessage(data, "*");
-
-              return () => {
+          if (tab_event.tabListener.type === "close") {
+            tab_event.tabListener.callback({
+              defer() {
                 const data: PPC_messageType = {
-                  type: "tab_defer_resolve_event",
+                  type: "tab_defer_event",
                   data: {
                     listenerId: listenerId,
                   },
@@ -194,9 +196,23 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
                   success: true,
                 };
                 window.top?.postMessage(data, "*");
-              };
-            },
-          });
+
+                return () => {
+                  const data: PPC_messageType = {
+                    type: "tab_defer_resolve_event",
+                    data: {
+                      listenerId: listenerId,
+                    },
+                    error: null,
+                    success: true,
+                  };
+                  window.top?.postMessage(data, "*");
+                };
+              },
+            });
+          } else {
+            tab_event.tabListener.callback();
+          }
         }
       };
       return UnSub;
@@ -339,7 +355,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             .forEach((x) => x.callback(data));
         } else if (type === "tab_event") {
           tabEvents.current.forEach((x) =>
-            x.cb({
+            x.tabListener.callback({
               defer: () => {
                 const data: PPC_messageType = {
                   type: "tab_defer_event",

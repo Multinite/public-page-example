@@ -342,11 +342,43 @@ export type TabInfo =
 
 type ProceedDeferFnc = () => void;
 type TabListenerDeferFunction = () => ProceedDeferFnc;
-export type TabListener = {
+
+//* Copied from navReducer.tsx
+interface TabListenerTEMPLATE {
   type: "close" | "focus" | "blur" | "moved" | "start";
   tabId: TabInfo["id"];
+  callback:
+    | (() => void)
+    | ((event: { defer: TabListenerDeferFunction }) => void);
+}
+
+interface TabListenerClose extends TabListenerTEMPLATE {
+  type: "close";
   callback: (event: { defer: TabListenerDeferFunction }) => void;
-};
+}
+interface TabListenerFocus extends TabListenerTEMPLATE {
+  type: "focus";
+  callback: () => void;
+}
+interface TabListenerBlur extends TabListenerTEMPLATE {
+  type: "blur";
+  callback: () => void;
+}
+interface TabListenerMoved extends TabListenerTEMPLATE {
+  type: "moved";
+  callback: () => void;
+}
+interface TabListenerStart extends TabListenerTEMPLATE {
+  type: "start";
+  callback: () => void;
+}
+
+export type TabListener =
+  | TabListenerClose
+  | TabListenerFocus
+  | TabListenerBlur
+  | TabListenerMoved
+  | TabListenerStart;
 
 export type TabManagerLisenerUnsubscribe = () => void;
 
