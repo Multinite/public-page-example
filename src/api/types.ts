@@ -49,6 +49,22 @@ interface PPC_add_tab_listener extends PPC_message {
   };
   error: null;
 }
+interface PPC_tab_unsub_defer extends PPC_message {
+  type: "tab_defer_event";
+  success: true;
+  data: {
+    listenerId: string;
+  };
+  error: null;
+}
+interface PPC_tab_unsub_defer_resolve extends PPC_message {
+  type: "tab_defer_resolve_event";
+  success: true;
+  data: {
+    listenerId: string;
+  };
+  error: null;
+}
 interface PPC_remove_tab_listener extends PPC_message {
   type: "remove_tab_listener";
   success: true;
@@ -57,7 +73,7 @@ interface PPC_remove_tab_listener extends PPC_message {
   };
   error: null;
 }
-interface PPC_set_tab_event extends PPC_message {
+interface PPC_tab_event extends PPC_message {
   type: "tab_event";
   success: true;
   data: {
@@ -212,9 +228,11 @@ export type PPC_messageType =
   | PPC_notification_remove
   | PPC_notification_set
   | PPC_set_tab_name
-  | PPC_set_tab_event
+  | PPC_tab_event
   | PPC_remove_tab_listener
+  | PPC_tab_unsub_defer_resolve
   | PPC_notificationType_set
+  | PPC_tab_unsub_defer
   | PPC_heartbeat
   | PPC_add_tab_listener
   | PPC_set_tab_icon

@@ -139,7 +139,8 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
       const listenerId = crypto.randomUUID();
 
       tabEvents.current.push({
-        
+        listenerId,
+        cb,
       });
 
       const data: PPC_messageType = {
