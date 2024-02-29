@@ -295,7 +295,14 @@ export type { NotificationType };
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
 interface TabInfoI {
   name: string;
-  type: "chat" | "new-tab" | "content" | "loading" | "profile" | "public";
+  type:
+    | "chat"
+    | "new-tab"
+    | "content"
+    | "loading"
+    | "profile"
+    | "public"
+    | "developers";
   id: string;
   closeable: boolean;
   isActive: boolean;
@@ -334,6 +341,12 @@ interface TabInfo_new_tab extends TabInfoI {
   tabProperties: {};
 }
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
+interface TabInfo_developers extends TabInfoI {
+  type: "developers";
+  path: `/dev`;
+  tabProperties: {};
+}
+//* NOTE: This type was copied from multinite's tabManagerProvider.tsx
 interface TabInfo_content extends TabInfoI {
   type: "content";
   path:
@@ -369,6 +382,7 @@ export type TabInfo =
   | TabInfo_chat
   | TabInfo_public
   | TabInfo_profile
+  | TabInfo_developers
   | TabInfo_new_tab;
 
 type ProceedDeferFnc = () => void;
