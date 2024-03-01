@@ -229,7 +229,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
       loadFinished() {
         const data: PPC_messageType = {
           type: "performance_load_finished",
-          data: null,
+          data: {},
           error: null,
           success: true,
         };
@@ -295,7 +295,9 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
         if (type === "heartbeat") {
           const data: PPC_messageType = {
             type: "heartbeat_response",
-            data: null,
+            data: {
+              token: "TEST_API_KEY"
+            },
             error: null,
             success: true,
           };

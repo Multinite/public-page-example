@@ -189,7 +189,9 @@ interface PPC_theme_change extends PPC_message {
 interface PPC_heartbeat_response extends PPC_message {
   type: "heartbeat_response";
   success: true;
-  data: null;
+  data: {
+    token: string;
+  };
   error: null;
 }
 
@@ -212,7 +214,7 @@ interface PPC_set_tab_name extends PPC_message {
 interface PPC_performance_load_finished extends PPC_message {
   type: "performance_load_finished";
   success: true;
-  data: null;
+  data: {};
   error: null;
 }
 interface PPC_performance_mark extends PPC_message {
