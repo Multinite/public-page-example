@@ -12,7 +12,6 @@ import {
 
 import type {
   PPC_messageType,
-  PPC_data_response,
   InitialTabManagerState,
   NotificationType,
   TabManagerLisenerUnsubscribe,
@@ -296,7 +295,7 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           const data: PPC_messageType = {
             type: "heartbeat_response",
             data: {
-              token: "TEST_API_KEY"
+              token: "TEST_API_KEY",
             },
             error: null,
             success: true,
@@ -304,11 +303,6 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           window.top?.postMessage(data, "*");
         } else if (type === "init") {
           if (success) {
-            const cssLink = document.createElement("link");
-            cssLink.href = data.css_path;
-            cssLink.rel = "stylesheet";
-            cssLink.type = "text/css";
-            document.head.appendChild(cssLink);
             document.documentElement.classList.add(data.current_theme);
             document.documentElement.style.setProperty("colorScheme", "dark");
             setTab(data.tabDetails);
@@ -406,6 +400,17 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
 
 function useTabManager(): InitialTabManagerState {
   const context = useContext(TabManagerContext);
+  const initiated_css = useRef(false);
+
+  useEffect(() => {
+    if (initiated_css.current) return;
+    initiated_css.current = true;
+    const cssLink = document.createElement("link");
+    cssLink.href = "https://multinite-public-pg-css.vercel.app/api";
+    cssLink.rel = "stylesheet";
+    cssLink.type = "text/css";
+    document.head.appendChild(cssLink);
+  }, []);
 
   if (context === undefined) {
     throw new Error("useTabManager must be used within a TabManagerProvider");
