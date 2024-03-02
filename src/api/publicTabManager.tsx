@@ -406,7 +406,7 @@ function useTabManager(): InitialTabManagerState {
     if (initiated_css.current) return;
     initiated_css.current = true;
     const cssLink = document.createElement("link");
-    cssLink.href = "https://multinite-public-pg-css.vercel.app/api";
+    cssLink.href = "https://multinite-public-pg-css.vercel.app/css";
     cssLink.rel = "stylesheet";
     cssLink.type = "text/css";
     document.head.appendChild(cssLink);
