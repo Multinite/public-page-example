@@ -22,3 +22,12 @@ Serving:
 ```bash
 npm run start
 ```
+
+## Next.js Documentation
+
+[Next.js App router docs](https://nextjs.org/docs/app)
+
+
+## Multinite Documentation
+
+[Multinite Public Page docs](https://dev.multinite.com/public_page/nextjs)
