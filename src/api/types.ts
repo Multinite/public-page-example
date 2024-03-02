@@ -241,7 +241,6 @@ interface PPC_message_init_successful extends PPC_message {
   success: true;
   data: {
     tabDetails: TabInfo;
-    css_path: string;
     current_theme: string;
   };
   error: null;
