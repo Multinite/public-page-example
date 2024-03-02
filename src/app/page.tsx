@@ -5,17 +5,12 @@ import { useEffect } from "react";
 export default function Home() {
   const tabManager = useTabManager();
   useEffect(() => {
-    console.log("using API");
-
     tabManager.on("start", () => {
-      console.log("tab started");
       tabManager.log({
-        content: ["[TEST] LOLOL!", tabManager.tab],
+        content: ["[MyPage] My Public page just started!", tabManager.tab],
         logStyle: "test",
       });
-
       tabManager.performance.loadFinished();
-      tabManager.notification.setNotificationType("bell");
     });
   }, [tabManager]);
 
