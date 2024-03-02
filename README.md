@@ -1,3 +1,5 @@
+<img title="Multinite + Next.js Banner" alt="Multinite + Next.js Banner" src="./banner.png" width="1000">
+
 # Next.js for Multinite.
 
 This project is made for Multinite's public pages.
