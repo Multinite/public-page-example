@@ -1,4 +1,4 @@
-<img title="Multinite + Next.js Banner" alt="Multinite + Next.js Banner" src="./banner.png" width="1000">
+<img title="Multinite + Next.js Banner" alt="Multinite + Next.js Banner" src="./banner.png" width="500">
 
 # Next.js for Multinite.
 
