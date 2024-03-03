@@ -20,6 +20,7 @@ import type {
   PPC_data_await,
 } from "./types";
 import { multiniteThemeOptions } from "../../tailwind.config";
+import { renderToString } from "react-dom/server";
 
 //@ts-ignore
 const TabManagerContext = createContext<InitialTabManagerState<any>>();
@@ -273,6 +274,11 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
           error: null,
           success: true,
         };
+
+        if (typeof alertProps.body != "string") {
+          alertProps.body = renderToString(alertProps.body);
+        }
+
         window.top?.postMessage(data, "*");
         res();
       });

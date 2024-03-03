@@ -1,6 +1,6 @@
 "use client";
 import { useTabManager } from "@/api/publicTabManager";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -33,7 +33,19 @@ export default function Home() {
             color="primary"
             onPress={() =>
               tabManager.tabAlert({
-                body: "Hello world",
+                body: (
+                  <>
+                    <h1
+                      className="text-primary text-2xl"
+                      style={{
+                        fontWeight: "600",
+                      }}
+                    >
+                      This is a test
+                    </h1>
+                    <h1 className="text-success">This is a test</h1>
+                  </>
+                ),
               })
             }
           >
