@@ -305,7 +305,10 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
         } else if (type === "init") {
           if (success) {
             document.documentElement.classList.add(data.current_theme);
-            document.documentElement.style.setProperty("colorScheme", "dark");
+            document.documentElement.style.setProperty(
+              "colorScheme",
+              data.colorScheme
+            );
             setTab(data.tabDetails);
           } else {
             throw new Error("Failed to initialize", {
@@ -313,12 +316,12 @@ function TabManagerProvider({ children }: { children: ReactNode }) {
             });
           }
         } else if (type === "theme_change") {
+          console.log(`[TabManager] Theme Change:`, data);
           document.documentElement.classList.remove(data.old_theme);
           document.documentElement.classList.add(data.new_theme);
-          document.documentElement.style.setProperty(
-            "colorScheme",
-            data.colorScheme || "dark"
-          );
+
+          document.documentElement.style.colorScheme =
+            data.colorScheme || "dark";
         } else if (type === "data_response") {
           if (data.request_type === "systenInfo") {
             if (!success) {
@@ -407,9 +410,12 @@ function useTabManager(): InitialTabManagerState {
     if (initiated_css.current) return;
     initiated_css.current = true;
     const cssLink = document.createElement("link");
-    cssLink.href = `https://multinite-public-pg-css.vercel.app/css?theme=${encodeURI(
+    cssLink.href = `http://localhost:3002/css?theme=${encodeURI(
       JSON.stringify(multiniteThemeOptions)
     )}`;
+    // cssLink.href = `https://multinite-public-pg-css.vercel.app/css?theme=${encodeURI(
+    //   JSON.stringify(multiniteThemeOptions)
+    // )}`;
     cssLink.rel = "stylesheet";
     cssLink.type = "text/css";
     document.head.appendChild(cssLink);

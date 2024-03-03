@@ -1,4 +1,6 @@
-import { MultiniteThemeOptions } from "@/api/multiniteThemePlugin";
+import multiniteThemePlugin, {
+  MultiniteThemeOptions,
+} from "./src/api/multiniteThemePlugin";
 import type { Config } from "tailwindcss";
 
 //? Change these values to match your project's needs.
@@ -6,26 +8,26 @@ import type { Config } from "tailwindcss";
 export const multiniteThemeOptions: MultiniteThemeOptions = {
   colors: {
     primary: true, // primary color
-    secondary: false, // secondary color
-    danger: false, // danger color
-    foreground: false, // foreground color
-    background: false, // background color
-    warning: false, // warning color
+    secondary: true, // secondary color
+    danger: true, // danger color
+    foreground: true, // foreground color
+    background: true, // background color
+    warning: true, // warning color
     success: false, // success color
     default: true, // default color
-    content1: false, // content1 color
-    content2: false, // content2 color
-    content3: false, // content3 color
-    content4: false, // content4 color
-    focus: false, // focus modififier color
-    divider: false, // divider color (eg: for borders)
-    overlay: false, // overlay color (eg: for modals)
+    content1: true, // content1 color
+    content2: true, // content2 color
+    content3: true, // content3 color
+    content4: true, // content4 color
+    focus: true, // focus modififier color
+    divider: true, // divider color (eg: for borders)
+    overlay: true, // overlay color (eg: for modals)
   },
   opacity: {
-    disabledOpacity: false, // disabled opacity (eg: for buttons)
+    disabledOpacity: true, // disabled opacity (eg: for buttons)
   },
   borderRadius: {
-    radius: false, // radius (eg: for buttons)
+    radius: true, // radius (eg: for buttons)
   },
 };
 
@@ -44,8 +46,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("./src/api/multiniteThemePlugin.ts")(multiniteThemeOptions),
-  ],
+  darkMode: 'class',
+  plugins: [multiniteThemePlugin(multiniteThemeOptions)],
 };
 export default config;

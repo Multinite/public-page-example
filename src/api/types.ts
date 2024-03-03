@@ -242,6 +242,7 @@ interface PPC_message_init_successful extends PPC_message {
   data: {
     tabDetails: TabInfo;
     current_theme: string;
+    colorScheme: "dark" | "light";
   };
   error: null;
 }

@@ -25,25 +25,6 @@ export type MultiniteThemeOptions = {
     radius: boolean;
   };
 };
-// export type MultiniteThemeOptions = {
-//   primary: boolean;
-//   secondary: boolean;
-//   danger: boolean;
-//   foreground: boolean;
-//   background: boolean;
-//   warning: boolean;
-//   success: boolean;
-//   default: boolean;
-//   content1: boolean;
-//   content2: boolean;
-//   content3: boolean;
-//   content4: boolean;
-//   focus: boolean;
-//   divider: boolean;
-//   overlay: boolean;
-//   disabledOpacity: boolean;
-//   radius: boolean;
-// };
 
 export default plugin.withOptions(
   function (options: MultiniteThemeOptions) {
@@ -78,31 +59,31 @@ export default plugin.withOptions(
   ) {
     function generateColorValues(color: string) {
       return {
-        DEFAULT: `var(--nextui-${color})`,
-        foreground: `var(--nextui-${color}-foreground)`,
-        50: `var(--nextui-${color}-50)`,
-        100: `var(--nextui-${color}-100)`,
-        200: `var(--nextui-${color}-200)`,
-        300: `var(--nextui-${color}-300)`,
-        400: `var(--nextui-${color}-400)`,
-        500: `var(--nextui-${color}-500)`,
-        600: `var(--nextui-${color}-600)`,
-        700: `var(--nextui-${color}-700)`,
-        800: `var(--nextui-${color}-800)`,
-        900: `var(--nextui-${color}-900)`,
+        DEFAULT: `hsl(var(--nextui-${color}))`,
+        foreground: `hsl(var(--nextui-${color}-foreground))`,
+        50: `hsl(var(--nextui-${color}-50))`,
+        100: `hsl(var(--nextui-${color}-100))`,
+        200: `hsl(var(--nextui-${color}-200))`,
+        300: `hsl(var(--nextui-${color}-300))`,
+        400: `hsl(var(--nextui-${color}-400))`,
+        500: `hsl(var(--nextui-${color}-500))`,
+        600: `hsl(var(--nextui-${color}-600))`,
+        700: `hsl(var(--nextui-${color}-700))`,
+        800: `hsl(var(--nextui-${color}-800))`,
+        900: `hsl(var(--nextui-${color}-900))`,
       } as const;
     }
 
     function generateContentColorValues(color: string) {
       return {
-        DEFAULT: `var(--nextui-${color})`,
-        foreground: `var(--nextui-${color}-foreground)`,
+        DEFAULT: `hsl(var(--nextui-${color}))`,
+        foreground: `hsl(var(--nextui-${color}-foreground))`,
       } as const;
     }
 
     function generateBasicColorValues(color: string) {
       return {
-        DEFAULT: `var(--nextui-${color})`,
+        DEFAULT: `hsl(var(--nextui-${color}))`,
       } as const;
     }
 
