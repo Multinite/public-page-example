@@ -1,8 +1,8 @@
 import { MultiniteThemeOptions } from "@/api/multiniteThemePlugin";
 import type { Config } from "tailwindcss";
 
-//? Change these values to match your project.
-//? We recommend having everything disabled to reduce CSS bundle size.
+//? Change these values to match your project's needs.
+//? We recommend having anything not needed disabled to reduce CSS bundle size.
 export const multiniteThemeOptions: MultiniteThemeOptions = {
   colors: {
     primary: true, // primary color
@@ -12,7 +12,7 @@ export const multiniteThemeOptions: MultiniteThemeOptions = {
     background: false, // background color
     warning: false, // warning color
     success: false, // success color
-    default: false, // default color
+    default: true, // default color
     content1: false, // content1 color
     content2: false, // content2 color
     content3: false, // content3 color

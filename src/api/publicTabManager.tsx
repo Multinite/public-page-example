@@ -19,6 +19,7 @@ import type {
   TabListener,
   PPC_data_await,
 } from "./types";
+import { multiniteThemeOptions } from "../../tailwind.config";
 
 //@ts-ignore
 const TabManagerContext = createContext<InitialTabManagerState<any>>();
@@ -406,7 +407,9 @@ function useTabManager(): InitialTabManagerState {
     if (initiated_css.current) return;
     initiated_css.current = true;
     const cssLink = document.createElement("link");
-    cssLink.href = "https://multinite-public-pg-css.vercel.app/css";
+    cssLink.href = `https://multinite-public-pg-css.vercel.app/css?theme=${encodeURI(
+      JSON.stringify(multiniteThemeOptions)
+    )}`;
     cssLink.rel = "stylesheet";
     cssLink.type = "text/css";
     document.head.appendChild(cssLink);
