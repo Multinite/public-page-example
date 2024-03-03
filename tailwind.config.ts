@@ -15,6 +15,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("./src/api/multiniteThemePlugin.ts")],
 };
 export default config;
