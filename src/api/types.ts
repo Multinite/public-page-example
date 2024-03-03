@@ -431,7 +431,7 @@ export type TabManagerLisenerUnsubscribe = () => void;
 
 export type InitialTabManagerState = {
   tab: TabInfo | null;
-  tabAlert: (alertProps: { body: ReactElement }) => Promise<void>;
+  tabAlert: (alertProps: { body: ReactElement | string }) => Promise<void>;
   on: (
     event: "close" | "focus" | "blur" | "moved" | "start", //TODO: Add all the functionality of all the events.
     cb: TabListener["callback"]

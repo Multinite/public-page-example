@@ -1,5 +1,6 @@
 "use client";
 import { useTabManager } from "@/api/publicTabManager";
+import { Button } from "@nextui-org/react";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -26,6 +27,18 @@ export default function Home() {
         </div>
         <div className="w-20 h-20 bg-success border-1 border-red-500">
           success
+        </div>
+        <div className="max-w-[100px]">
+          <Button
+            color="primary"
+            onPress={() =>
+              tabManager.tabAlert({
+                body: "Hello world",
+              })
+            }
+          >
+            Test button that uses primary.
+          </Button>
         </div>
       </div>
     </div>
