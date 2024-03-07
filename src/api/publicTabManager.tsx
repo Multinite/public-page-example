@@ -416,11 +416,17 @@ function useTabManager(): InitialTabManagerState {
     if (initiated_css.current) return;
     initiated_css.current = true;
     const cssLink = document.createElement("link");
-    cssLink.href = `http://localhost:3002/css?theme=${encodeURI(
-      JSON.stringify(multiniteThemeOptions)
-    )}`;
+    if (process.env.NODE_ENV !== "production") {
+      cssLink.href = `http://localhost:3002/css?theme=${encodeURI(
+        JSON.stringify(multiniteThemeOptions)
+      )}`;
+    } else {
+      cssLink.href = `https://public.multinite.com/css?theme=${encodeURI(
+        JSON.stringify(multiniteThemeOptions)
+      )}`;
+    }
     // cssLink.href = `https://multinite-public-pg-css.vercel.app/css?theme=${encodeURI(
-    //   JSON.stringify(multiniteThemeOptions)
+    //   JSON.stringify(multiniteThemeOptions)`
     // )}`;
     cssLink.rel = "stylesheet";
     cssLink.type = "text/css";
