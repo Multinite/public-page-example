@@ -25,7 +25,7 @@ export default function Home() {
         <div className="w-20 h-20 bg-secondary border-1 border-red-500">
           secondary
         </div>
-        <div className="w-20 h-20 bg-success border-1 border-red-500">
+        <div className="w-20 h-20 bg-success border-1 border-red-500 ">
           success
         </div>
         <div className="max-w-[100px]">
@@ -51,6 +51,15 @@ export default function Home() {
           >
             Test button that uses primary.
           </Button>
+        </div>
+        <div className="">
+          <iframe
+            width="560"
+            height="315"
+            src="http://localhost:3001"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          ></iframe>
         </div>
       </div>
     </div>

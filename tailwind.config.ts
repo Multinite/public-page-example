@@ -14,7 +14,7 @@ export const multiniteThemeOptions: MultiniteThemeOptions = {
     foreground: true, // foreground color
     background: true, // background color
     warning: true, // warning color
-    success: false, // success color
+    success: true, // success color
     default: true, // default color
     content1: true, // content1 color
     content2: true, // content2 color
