@@ -1,6 +1,17 @@
 {
   "name": "public-page-example",
-  "version": "0.1.0",
+  "version": "0.0.1",
+  "private": false,
+  "license": "MIT",
+  "keywords": [
+    "multinite",
+    "public-page"
+  ],
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Multinite/public-page-example"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
