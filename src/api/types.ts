@@ -304,6 +304,7 @@ interface TabInfoI {
     | "loading"
     | "profile"
     | "public"
+    | "calendar"
     | "developers";
   id: string;
   closeable: boolean;
@@ -320,6 +321,12 @@ interface TabInfoI {
 interface TabInfo_loading extends TabInfoI {
   type: "loading";
   path: "/loading";
+  tabProperties: {};
+}
+//* NOTE: This type was copied from multinite's tabManagerProvider.tsx
+interface TabInfo_calendar extends TabInfoI {
+  type: "calendar";
+  path: "/calendar";
   tabProperties: {};
 }
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
@@ -385,6 +392,7 @@ export type TabInfo =
   | TabInfo_public
   | TabInfo_profile
   | TabInfo_developers
+  | TabInfo_calendar
   | TabInfo_new_tab;
 
 type ProceedDeferFnc = () => void;
