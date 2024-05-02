@@ -300,6 +300,7 @@ interface TabInfoI {
   type:
     | "chat"
     | "new-tab"
+    | "sandbox"
     | "content"
     | "loading"
     | "profile"
@@ -371,6 +372,13 @@ interface TabInfo_content extends TabInfoI {
 }
 
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
+interface TabInfo_sandbox extends TabInfoI {
+  type: "sandbox";
+  path: `/sandbox`;
+  tabProperties: {};
+}
+
+//* NOTE: This type was copied from multinite's tabManagerProvider.tsx
 interface TabInfo_profile extends TabInfoI {
   type: "profile";
   path: "/profile" | `/profile/@${string}`;
@@ -390,6 +398,7 @@ export type TabInfo =
   | TabInfo_loading
   | TabInfo_chat
   | TabInfo_public
+  | TabInfo_sandbox
   | TabInfo_profile
   | TabInfo_developers
   | TabInfo_calendar
