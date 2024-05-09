@@ -356,8 +356,8 @@ interface TabInfo_developers extends TabInfoI {
   path: `/dev`;
   tabProperties: {};
 }
-//* NOTE: This type was copied from multinite's tabManagerProvider.tsx
-interface TabInfo_content extends TabInfoI {
+//* NOTE: If this type is updated, make sure to update it in the multinite-public-tab-manager's API as well.
+interface TabInfo_content_base extends TabInfoI {
   type: "content";
   path:
     | `/content`
@@ -365,11 +365,23 @@ interface TabInfo_content extends TabInfoI {
     | `/content/video`
     | `/content/stream`
     | `/content?s=${string}`;
+}
+//* NOTE: If this type is updated, make sure to update it in the multinite-public-tab-manager's API as well.
+interface TabInfo_content_nosource extends TabInfo_content_base {
+  path: `/content` | `/content/music` | `/content/video` | `/content/stream`;
+  tabProperties: Record<string, never>;
+}
 
+//* NOTE: If this type is updated, make sure to update it in the multinite-public-tab-manager's API as well.
+interface TabInfo_content_source extends TabInfo_content_base {
+  path: `/content?s=${string}`;
   tabProperties: {
     source: string;
   };
 }
+
+//* NOTE: If this type is updated, make sure to update it in the multinite-public-tab-manager's API as well.
+type TabInfo_content = TabInfo_content_source | TabInfo_content_nosource;
 
 //* NOTE: This type was copied from multinite's tabManagerProvider.tsx
 interface TabInfo_sandbox extends TabInfoI {
